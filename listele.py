@@ -9,7 +9,7 @@ def listele(li:list, kolon:int, ljustmz:int=30):
         print("Listelenemeyen eleman girildi.", file= stderr)
         return
     if type(kolon) != int or type(ljustmz) != int or kolon < 1 or ljustmz < 0 or kolon > len(li):
-        print("Hatalı parametreler girildi.")
+        print("Hatalı parametreler girildi.", file= stderr)
         return
 
     for i in range(0, len(li)-kolon+1, kolon):
