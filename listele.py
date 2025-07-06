@@ -3,12 +3,14 @@
 from sys import stderr
 
 def listele(li:list, kolon:int, ljustmz:int=30):
+    """ listele(li:list, kolon:int, ljustmz:int=30)
+    """
     try:
         iter(li)
     except:
         print("Listelenemeyen eleman girildi.", file= stderr)
         return
-    if type(kolon) != int or type(ljustmz) != int or kolon < 1 or ljustmz < 0 or kolon > len(li):
+    if not isinstance(kolon, int) or not isinstance(ljustmz, int) or 1 >= kolon > len(li) or ljustmz < 0:
         print("Hatalı parametreler girildi.", file= stderr)
         return
 
