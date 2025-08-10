@@ -3,10 +3,10 @@ requires = ["setuptools >= 77.0.3"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "listele_Esat-cpu"
+name = "listele"
 version = "0.1.0"
 authors = [
-  { name="Esat Saygın", email="saygina7@gmail.com" },
+  { name="Esat Saygın" },
 ]
 description = "Just a printing listed version function."
 readme = "README.md"
@@ -16,7 +16,4 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 license = "MIT"
-license-files = ["LICEN[CS]E*"]
-
-[project.urls]
-Homepage = "https://github.com/Esat-cpu/listele"
+license-files = ["LICENSE*"]
