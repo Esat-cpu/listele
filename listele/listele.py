@@ -2,14 +2,19 @@
 
 from sys import stderr
 
-def listele(li:list, kolon:int, ljustmz:int=30):
-    """ listele(li:list, kolon:int, ljustmz:int=30)
+def listele(li:list, kolon:int, ljustmz:int=30, *, find:str=""):
+    """ listele(li:list, kolon:int, ljustmz:int=30, *, find:str="")
     """
     try:
         iter(li)
     except:
         print("Listelenemeyen eleman girildi.", file= stderr)
         return
+
+    if find:
+        find = find.lower()
+        li = [i for i in li if find in i.lower()]
+
     if not isinstance(kolon, int) or not isinstance(ljustmz, int) or 1 >= kolon > len(li) or ljustmz < 0:
         print("Hatalı parametreler girildi.", file= stderr)
         return
