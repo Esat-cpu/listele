@@ -3,8 +3,29 @@
 ---
 
 ```python
-def listele(li:list, kolon:int, ljustmz:int=30):
-    ...
+def listele(li:list|dict, kolon:int, ljustmz:int=30, *, find:str="")
+```
+```python
+# Usage example:
+
+from listele import listele
+
+import sysconfig
+li = dir(sysconfig)  # list type object
+di = sysconfig.get_paths()  # dict type object
+
+print("Output1:")
+listele(li, 4)
+
+print("\n\nOutput2:")
+listele(li, 4, find="path")
+
+print("\n\nOutput3:")
+listele(di, 2, 70)
+
+print("\n\nOutput4:")
+listele(di, 1, find="include")
+
 ```
 
 ---
