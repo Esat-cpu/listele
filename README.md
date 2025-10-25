@@ -3,7 +3,7 @@
 ---
 
 ```python
-def listele(li:list|dict, kolon:int, ljustmz:int=30, *, find:str="")
+def listele(li:list|dict, kolon:int, ljustmz:int=30, *, find:str="", reverse:bool=False)
 ```
 ```python
 # Usage example:
@@ -26,6 +26,8 @@ listele(di, 2, 70)
 print("\n\nOutput4:")
 listele(di, 1, find="include")
 
+print("\n\nOutput5:")
+listele([1, 2, 3, 4, 5], 3, reverse=True)
 ```
 
 ---
