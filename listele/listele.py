@@ -44,12 +44,12 @@ def listele(li:list|dict, kolon:int, ljustmz:int=30, *, find:str="", reverse:boo
         li = list(li)
 
 
-    length = len(li)
-
-
     if find:
         find = find.lower()
         li = [i for i in li if find in i.lower()]
+
+
+    lenght = len(li)
 
 
     if (
