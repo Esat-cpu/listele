@@ -1,33 +1,19 @@
-# Bir listenin elemanlarını kolonlar halinde sıralayan fonksiyon:
-
 import sys
-from math import ceil
+import math
 
-def listele(li:list|dict, kolon:int, ljustmz:int=30, *, find:str="", reverse:bool=False):
-    """ listele(li:list|dict, kolon:int, ljustmz:int=30, *, find:str="", reverse:bool=False)
 
-    Usage example:
+__all__ = ["listele"]
 
-    from listele import listele
 
-    import sysconfig
-    li = dir(sysconfig)  # list type object
-    di = sysconfig.get_paths()  # dict type object
+def listele(li:list|dict, column:int, /, *, spaces:int=30, find:str="", reverse:bool=False):
+    """
+    listele(li:list|dict, column:int, /, *, spaces:int=30, find:str="", reverse:bool=False)
 
-    print("Output1:")
-    listele(li, 4)
-
-    print("\n\nOutput2:")
-    listele(li, 4, find="path")
-
-    print("\n\nOutput3:")
-    listele(di, 2, 70)
-
-    print("\n\nOutput4:")
-    listele(di, 1, find="include")
-
-    print("\n\nOutput5:")
-    listele([1, 2, 3, 4, 5], 3, reverse=True)
+    - li      : An iterable
+    - column  : Output column number
+    - spaces  : Spaces between elements
+    - find    : Filters the output with given string
+    - reverse : Prints elements top to bottom instead of left to right (disabled by default)
     """
 
     try:
@@ -37,7 +23,7 @@ def listele(li:list|dict, kolon:int, ljustmz:int=30, *, find:str="", reverse:boo
         return
 
 
-    # convert li to a list
+    # Convert li to a list
     if isinstance(li, dict):
         li = [f"{key}: {item}" for key, item in li.items()]
     else:
@@ -53,52 +39,57 @@ def listele(li:list|dict, kolon:int, ljustmz:int=30, *, find:str="", reverse:boo
 
 
     if (
-        not isinstance(kolon, int)
-        or not isinstance(ljustmz, int)
-        or 1 >= kolon > length
-        or ljustmz < 0
+        not isinstance(column, int)
+        or not isinstance(spaces, int)
+        or 1 >= column
+        or spaces < 0
     ):
-        print("E: Incorrect arguments.", file= sys.stderr)
+        print("E: Incorrect arguments.", file=sys.stderr)
         return
 
 
-    # print list elements left to right
-    # 'kolon' represents the number of columns
-    if not reverse:
-        for i in range(0, (length - kolon+1), kolon):
-            for j in range(kolon):
-                ind = i + j
-                st = str(li[ind])
+    if (column > length):
+        column = length
 
-                if (ind+1) % kolon != 0:
-                    st = st.ljust(ljustmz)
-                print(st, end="")
+
+    number_of_groups = math.ceil(length / column)
+
+    control = (length > ((column - 1) * number_of_groups))
+    # Print list elements top to bottom
+    # It is not supported for all length and column values
+    if reverse and control:
+
+        number_of_lines = math.ceil(length / column)
+        printed = 0
+        index = 0
+        while printed != length:
+            token = str(li[index])
+
+            end_of_line = (not ((printed + 1) % column))
+
+            print(token, end=("\n" if end_of_line else " " * spaces))
+            printed += 1
+
+            index += number_of_lines
+            while index >= length:
+                index -= column * number_of_lines
+                index += 1
+
+        if not end_of_line:
             print()
 
-
-        remainder = length % kolon
-        if remainder:
-            for i in range(remainder, 0, -1):
-                st = str(li[-i]).ljust(ljustmz)
-                print(st, end="")
-            print()
-
-    # print list elements top to bottom
-    # now 'kolon' represents the number of lines
+    # Print list elements left to right
     else:
-        for i in range(kolon):
-            column = ceil(length / kolon)
-            for j in range(column):
-                ind = kolon * j + i
+        if reverse and not control:
+            print("W: Reverse not supported for this input", file=sys.stderr)
 
-                if ind >= length: break
+        for index in range(length):
+            token = str(li[index])
 
-                st = str(li[ind])
+            end_of_line = (not ((index + 1) % column))
 
-                if j != column -1:
-                    st = st.ljust(ljustmz)
-                print(st, end="")
+            print(token, end=("\n" if end_of_line else " " * spaces))
+
+        if not end_of_line:
             print()
-
-            if i >= length: break
 

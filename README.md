@@ -1,17 +1,27 @@
-# listele Fonksiyonu
+# listele function
+
+Prints the given iterable in a listed format with columns and spacing.
 
 ---
 
 ```python
-def listele(li:list|dict, kolon:int, ljustmz:int=30, *, find:str="", reverse:bool=False)
+listele(li:list|dict, column:int, /, *, spaces:int=30, find:str="", reverse:bool=False)
+"""
+- li      : An iterable
+- column  : Output column number
+- spaces  : Spaces between elements
+- find    : Filters the output with given string
+- reverse : Prints elements top to bottom instead of left to right (disabled by default)
+"""
 ```
+
 ```python
 # Usage example:
 
 from listele import listele
 
 import sysconfig
-li = dir(sysconfig)  # list type object
+li = dir(sysconfig)         # list type object
 di = sysconfig.get_paths()  # dict type object
 
 print("Output1:")
@@ -21,7 +31,7 @@ print("\n\nOutput2:")
 listele(li, 4, find="path")
 
 print("\n\nOutput3:")
-listele(di, 2, 70)
+listele(di, 2, spaces=70)
 
 print("\n\nOutput4:")
 listele(di, 1, find="include")
@@ -30,10 +40,3 @@ print("\n\nOutput5:")
 listele([1, 2, 3, 4, 5], 3, reverse=True)
 ```
 
----
-
-## Kullanım
-
-li kısmına bir iterable verirsiniz (mesela bir dir() ifadesi).
-Terminalinizde kaç kolon halinde gözükmesini istediğinizi belirtirsiniz.
-Ve eğer isterseniz yazılan değerler arasındaki uzaklığı değiştirebilirsiniz.
