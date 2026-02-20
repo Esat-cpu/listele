@@ -83,7 +83,11 @@ def _print_top_to_bottom(
 
         end_of_line = (not ((printed + 1) % column))
 
-        print(token, end=("\n" if end_of_line else " " * spaces))
+        # Pad the token with spaces to maintain column alignment
+        if not end_of_line:
+            token = token.ljust(spaces)
+
+        print(token, end=("\n" if end_of_line else ""))
         printed += 1
 
         index += number_of_lines
@@ -107,7 +111,11 @@ def _print_left_to_right(
 
         end_of_line = (not ((index + 1) % column))
 
-        print(token, end=("\n" if end_of_line else " " * spaces))
+        # Pad the token with spaces to maintain column alignment
+        if not end_of_line:
+            token = token.ljust(spaces)
+
+        print(token, end=("\n" if end_of_line else ""))
 
     if not end_of_line:
         print()
