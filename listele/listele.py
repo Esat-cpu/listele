@@ -29,7 +29,7 @@ def listele(li:list|dict, column:int, /, *, spaces:int=30, find:str="", regex:st
     if isinstance(li, dict):
         li = [f"{key}: {item}" for key, item in li.items()]
     else:
-        li = list(li)
+        li = list(map(str, li))
 
 
     if find:
@@ -92,7 +92,7 @@ def _print_top_to_bottom(
     printed = 0
     index = 0
     while printed != list_length:
-        token = str(li[index])
+        token = li[index]
 
         end_of_line = (not ((printed + 1) % column))
 
@@ -120,7 +120,7 @@ def _print_left_to_right(
         spaces: int
 ):
     for index in range(list_length):
-        token = str(li[index])
+        token = li[index]
 
         end_of_line = (not ((index + 1) % column))
 
