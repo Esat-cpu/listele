@@ -11,7 +11,8 @@ listele(li:list|dict, column:int, /, *, spaces:int=30, find:str="", reverse:bool
 - column  : Output column number
 - spaces  : Spaces between elements
 - find    : Filters the output with given string
-- reverse : Prints elements top to bottom instead of left to right (disabled by default)
+- regex   : Filters the output with given regex
+- reverse : Prints elements top to bottom instead of left to right
 """
 ```
 
@@ -38,5 +39,8 @@ listele(di, 1, find="include")
 
 print("\n\nOutput5:")
 listele([1, 2, 3, 4, 5], 3, reverse=True)
+
+print("\n\nOutput6:")
+listele(['Hello', 'hello', 'hello world'], 2, regex="^[Hh]ello$")
 ```
 

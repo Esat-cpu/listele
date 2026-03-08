@@ -1,19 +1,21 @@
 import sys
 import math
+import re
 
 
 __all__ = ["listele"]
 
 
-def listele(li:list|dict, column:int, /, *, spaces:int=30, find:str="", reverse:bool=False):
+def listele(li:list|dict, column:int, /, *, spaces:int=30, find:str="", regex:str="", reverse:bool=False):
     """
-    listele(li:list|dict, column:int, /, *, spaces:int=30, find:str="", reverse:bool=False)
+    listele(li:list|dict, column:int, /, *, spaces:int=30, find:str="", regex:str="", reverse:bool=False)
 
     - li      : An iterable
     - column  : Output column number
     - spaces  : Spaces between elements
     - find    : Filters the output with given string
-    - reverse : Prints elements top to bottom instead of left to right (disabled by default)
+    - regex   : Filters the output with given regex
+    - reverse : Prints elements top to bottom instead of left to right
     """
 
     try:
@@ -33,6 +35,12 @@ def listele(li:list|dict, column:int, /, *, spaces:int=30, find:str="", reverse:
     if find:
         find = find.lower()
         li = [i for i in li if find in i.lower()]
+
+
+    if regex:
+        compiled = re.compile(regex)
+        li = [i for i in li if compiled.match(i)]
+
 
 
     length = len(li)
