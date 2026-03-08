@@ -41,12 +41,17 @@ def listele(li:list|dict, column:int, /, *, spaces:int=30, find:str="", reverse:
     if (
         not isinstance(column, int)
         or not isinstance(spaces, int)
-        or 1 >= column
+        or column < 1
         or spaces < 0
     ):
         print("E: Incorrect arguments.", file=sys.stderr)
         return
 
+
+    # If the list is empty print a new line and do nothing
+    if length == 0:
+        print()
+        return
 
     if (column > length):
         column = length
